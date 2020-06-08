@@ -8,21 +8,50 @@ import datetime
 
 data = os.path.join("data")
 filepath = os.path.dirname(data)
+def to_usd(my_price):
+    return f"${my_price:,.2f}"
 
 #User prompted to select file
 filename = easygui.fileopenbox(msg="Please Select a File", default="data/*")
+df = pd.read_csv(filename)
 
-#TODO Calculate total sales for each item and total sales overall
+#month
+m = df["date"].min()
+monthinteger = int(m[5:7])
+month = datetime.date(1900, monthinteger, 1).strftime('%B')
+
+# year
+y = df["date"].min()
+yearinteger = int(y[0:4])
+year = datetime.date(yearinteger, monthinteger, 1).strftime('%Y')
+
+#total sales per item
+product = df["product"]
+products = []
+for p in products:
+    if p(product) not in products:
+        products.append(p(product)) 
+print(products)
+# print(type(products))
+# for p in products:
+#     total_products = 
+
+#total sales
+total_sales = df["sales price"].sum()
+# print(type(df))
+# print(df.head())
+
+#TODO Calculate total sales for each item
 #TODO Have the program output at least one chart or graph depicting relevant info
 
 print("-----------------------")
-print("MONTH: March 2018")
+print(f"MONTH: {month} {year}")
 
 print("-----------------------")
 print("CRUNCHING THE DATA...")
 
 print("-----------------------")
-print("TOTAL MONTHLY SALES: $12,000.71")
+print(f"TOTAL MONTHLY SALES: {to_usd(total_sales)}")
 
 print("-----------------------")
 print("TOP SELLING PRODUCTS:")
