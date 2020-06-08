@@ -5,6 +5,7 @@ import os
 import plotly
 import easygui
 import datetime
+import operator
 
 data = os.path.join("data")
 filepath = os.path.dirname(data)
@@ -25,23 +26,22 @@ y = df["date"].min()
 yearinteger = int(y[0:4])
 year = datetime.date(yearinteger, monthinteger, 1).strftime('%Y')
 
+#TODO Calculate total sales for each item
 #total sales per item
-product = df["product"]
-products = []
-for p in products:
-    if p(product) not in products:
-        products.append(p(product)) 
-print(products)
-# print(type(products))
-# for p in products:
-#     total_products = 
+
+product_sales = df.groupby("product")["sales price"].sum().rename("product sales").reset_index()
+df_1 = df.merge(product_sales)
+print(df_1.sort_values(by='product sales', ascending=False).groupby('product sales').head(1))
+
+
+
+
 
 #total sales
 total_sales = df["sales price"].sum()
 # print(type(df))
 # print(df.head())
 
-#TODO Calculate total sales for each item
 #TODO Have the program output at least one chart or graph depicting relevant info
 
 print("-----------------------")
@@ -55,7 +55,7 @@ print(f"TOTAL MONTHLY SALES: {to_usd(total_sales)}")
 
 print("-----------------------")
 print("TOP SELLING PRODUCTS:")
-print("  1) Button-Down Shirt: $6,960.35")
+#print(f"1) : $6,960.35")
 print("  2) Super Soft Hoodie: $1,875.00")
 print("  3) etc.")
 
