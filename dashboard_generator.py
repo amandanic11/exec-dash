@@ -3,9 +3,9 @@
 import pandas as pd
 import os
 import plotly
+import plotly.express as px
 import easygui
 import datetime
-import operator
 
 data = os.path.join("data")
 filepath = os.path.dirname(data)
@@ -30,7 +30,7 @@ year = datetime.date(yearinteger, monthinteger, 1).strftime('%Y')
 product_sales = df.groupby("product")["sales price"].sum().rename("product sales").reset_index()
 df_1 = df.merge(product_sales)
 df_2 = df_1.sort_values(by='product sales', ascending=False).groupby('product sales').head(1)
-
+df_4 = df_1.sort_values(by='product sales', ascending=True).groupby('product sales').head(1)
 #top selling products
 df_3 = df_2.head(3).reset_index()
 t1_price = df_3["product sales"].max()
@@ -64,3 +64,18 @@ print(f"3) {t3}: {to_usd(t3_price)}")
 
 print("-----------------------")
 print("VISUALIZING THE DATA...")
+
+df_chart = px.data.tips()
+fig = px.bar(df_4, x="product sales", y="product", orientation='h',
+            title=f'Top-selling Products: ({month} {year})')
+
+# fig.update_layout(xaxis={'categoryorder':'total ascending'})
+fig.show()
+
+# import plotly.express as px
+# df = px.data.tips()
+# fig = px.bar(df, x="total_bill", y="sex", color='day', orientation='h',
+#              hover_data=["tip", "size"],
+#              height=400,
+#              title='Restaurant bills')
+# fig.show()
