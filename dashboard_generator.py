@@ -67,7 +67,9 @@ print("VISUALIZING THE DATA...")
 
 df_chart = px.data.tips()
 fig = px.bar(df_4, x="product sales", y="product", orientation='h',
-            title=f'Top-selling Products: ({month} {year})')
+            title=f'Top-selling Products: ({month} {year})',
+            text='product sales',
+            labels={'product':'Products', 'product sales':'Sales (USD)'})
 
 # fig.update_layout(xaxis={'categoryorder':'total ascending'})
 fig.show()
