@@ -26,21 +26,24 @@ y = df["date"].min()
 yearinteger = int(y[0:4])
 year = datetime.date(yearinteger, monthinteger, 1).strftime('%Y')
 
-#TODO Calculate total sales for each item
 #total sales per item
-
 product_sales = df.groupby("product")["sales price"].sum().rename("product sales").reset_index()
 df_1 = df.merge(product_sales)
-print(df_1.sort_values(by='product sales', ascending=False).groupby('product sales').head(1))
+df_2 = df_1.sort_values(by='product sales', ascending=False).groupby('product sales').head(1)
 
+#top selling products
+df_3 = df_2.head(3).reset_index()
+t1_price = df_3["product sales"].max()
+t1 = df_3["product"].max()
 
+t2 = df_3.iloc[1, 2]
+t2_price = df_3.iloc[1, 6]
 
-
+t3 = df_3["product"].min()
+t3_price = df_3["product sales"].min()
 
 #total sales
 total_sales = df["sales price"].sum()
-# print(type(df))
-# print(df.head())
 
 #TODO Have the program output at least one chart or graph depicting relevant info
 
@@ -55,9 +58,9 @@ print(f"TOTAL MONTHLY SALES: {to_usd(total_sales)}")
 
 print("-----------------------")
 print("TOP SELLING PRODUCTS:")
-#print(f"1) : $6,960.35")
-print("  2) Super Soft Hoodie: $1,875.00")
-print("  3) etc.")
+print(f"1) {t1}: {to_usd(t1_price)}")
+print(f"2) {t2}: {to_usd(t2_price)}")
+print(f"3) {t3}: {to_usd(t3_price)}")
 
 print("-----------------------")
 print("VISUALIZING THE DATA...")
