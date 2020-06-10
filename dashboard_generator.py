@@ -56,8 +56,6 @@ t3_price = df_3["product sales"].min()
 #total sales
 total_sales = df["sales price"].sum()
 
-#TODO Have the program output at least one chart or graph depicting relevant info
-
 print("-----------------------")
 print(f"MONTH: {month} {year}")
 

@@ -1,3 +1,4 @@
 easygui
 datetime
 plotly
+pandas
