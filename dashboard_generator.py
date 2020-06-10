@@ -6,14 +6,22 @@ import plotly
 import plotly.express as px
 import easygui
 import datetime
+import fnmatch
 
 data = os.path.join("data")
 filepath = os.path.dirname(data)
 def to_usd(my_price):
     return f"${my_price:,.2f}"
 
-#User prompted to select file
-filename = easygui.fileopenbox(msg="Please Select a File", default="data/*")
+# User prompted to select file with error handling
+while True:
+    filename = easygui.fileopenbox(msg="Please Select a File", default="data/*")
+    if fnmatch.fnmatch(filename, '*.csv'):
+        break
+    else:
+        print("Oops, unable to find or open file. Please try again")
+
+
 df = pd.read_csv(filename)
 
 #month
@@ -74,13 +82,5 @@ fig = px.bar(df_4, x="product sales", y="product", orientation='h',
             text='product sales',
             labels={'product':'Products', 'product sales':'Sales (USD)'})
 
-fig.update_layout(xaxis_tickformat = '$')
+fig.update_layout(xaxis_tickformat="${:,.2f}")
 fig.show()
-
-# import plotly.express as px
-# df = px.data.tips()
-# fig = px.bar(df, x="total_bill", y="sex", color='day', orientation='h',
-#              hover_data=["tip", "size"],
-#              height=400,
-#              title='Restaurant bills')
-# fig.show()
