@@ -1,6 +1,6 @@
 # exec-dash
 
-Before Running the Dashboard Generator
+##Before Running the Dashboard Generator
 Set-up new Anaconda environment from which to run dashboard:
 ```sh    
 conda create -n dashboard-env python=3.7 # (first time only)
