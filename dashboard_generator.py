@@ -31,6 +31,8 @@ product_sales = df.groupby("product")["sales price"].sum().rename("product sales
 df_1 = df.merge(product_sales)
 df_2 = df_1.sort_values(by='product sales', ascending=False).groupby('product sales').head(1)
 df_4 = df_1.sort_values(by='product sales', ascending=True).groupby('product sales').head(1)
+df_4['product sales'] = df_4['product sales'].map('${:,.2f}'.format)
+
 #top selling products
 df_3 = df_2.head(3).reset_index()
 t1_price = df_3["product sales"].max()
@@ -65,13 +67,14 @@ print(f"3) {t3}: {to_usd(t3_price)}")
 print("-----------------------")
 print("VISUALIZING THE DATA...")
 
+
 df_chart = px.data.tips()
 fig = px.bar(df_4, x="product sales", y="product", orientation='h',
             title=f'Top-selling Products: ({month} {year})',
             text='product sales',
             labels={'product':'Products', 'product sales':'Sales (USD)'})
 
-# fig.update_layout(xaxis={'categoryorder':'total ascending'})
+fig.update_layout(xaxis_tickformat = '$')
 fig.show()
 
 # import plotly.express as px
