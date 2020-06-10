@@ -19,8 +19,7 @@ while True:
     if fnmatch.fnmatch(filename, '*.csv'):
         break
     else:
-        # print("Oops, unable to find or open file. Please try again")
-        easygui.exceptionbox(msg="Oops, unable to open file. Please try again.")
+        easygui.exceptionbox(msg="Oops, unable to open file. Please try again.", title="OOPS!")
 
 
 df = pd.read_csv(filename)
@@ -84,5 +83,5 @@ fig = px.bar(df_4, x="product sales", y="product", orientation='h',
             text='product sales',
             labels={'product':'Products', 'product sales':'Sales (USD)'})
 
-fig.update_layout(xaxis_tickformat="${:,.2f}")
+fig.update_layout(xaxis_tickformat=("$.2f"))
 fig.show()
