@@ -12,7 +12,7 @@ From inside the virtual environment, use pip to install package dependencies:
     pip install -r requirements.txt
 ```
 
-# How to Run the Dashboard Generator:
+## How to Run the Dashboard Generator:
 1) Navigate to the program folder
 2) Input: python dashboard_generator.py
 3) Select the data file you would like to view!
