@@ -19,7 +19,8 @@ while True:
     if fnmatch.fnmatch(filename, '*.csv'):
         break
     else:
-        print("Oops, unable to find or open file. Please try again")
+        # print("Oops, unable to find or open file. Please try again")
+        easygui.exceptionbox(msg="Oops, unable to open file. Please try again.")
 
 
 df = pd.read_csv(filename)
@@ -42,14 +43,15 @@ df_4 = df_1.sort_values(by='product sales', ascending=True).groupby('product sal
 df_4['product sales'] = df_4['product sales'].map('${:,.2f}'.format)
 
 #top selling products
+
 df_3 = df_2.head(3).reset_index()
 t1_price = df_3["product sales"].max()
-t1 = df_3["product"].max()
+t1 = df_3.iloc[0, 2]
 
 t2 = df_3.iloc[1, 2]
 t2_price = df_3.iloc[1, 6]
 
-t3 = df_3["product"].min()
+t3 = df_3.iloc[2, 2]
 t3_price = df_3["product sales"].min()
 
 #total sales
